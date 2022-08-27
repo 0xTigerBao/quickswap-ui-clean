@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Box } from '@material-ui/core';
-import { getBulkPairData } from 'state/stake/hooks';
+// import { getBulkPairData } from 'state/stake/hooks';
 import { ReactComponent as HelpIcon } from 'assets/images/HelpIcon1.svg';
 import { useActiveWeb3React } from 'hooks';
 import { GlobalConst } from 'constants/index';
@@ -34,9 +34,9 @@ const FarmPage: React.FC = () => {
     return stakingPairLists.concat(dualPairLists);
   }, [chainIdOrDefault, lpFarms, dualFarms]);
 
-  useEffect(() => {
-    getBulkPairData(pairLists).then((data) => setBulkPairs(data));
-  }, [pairLists]);
+  // useEffect(() => {
+  //   getBulkPairData(pairLists).then((data) => setBulkPairs(data));
+  // }, [pairLists]);
 
   const farmCategories = [
     {

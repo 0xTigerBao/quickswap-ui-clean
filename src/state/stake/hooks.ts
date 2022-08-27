@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import {
   CurrencyAmount,
   JSBI,
@@ -10,8 +11,8 @@ import dayjs from 'dayjs';
 import { useMemo, useEffect } from 'react';
 import { usePairs } from 'data/Reserves';
 
-import { client } from 'apollo/client';
-import { GLOBAL_DATA, PAIRS_BULK, PAIRS_HISTORICAL_BULK } from 'apollo/queries';
+// import { client } from 'apollo/client';
+// import { GLOBAL_DATA, PAIRS_BULK, PAIRS_HISTORICAL_BULK } from 'apollo/queries';
 import { GlobalConst, GlobalValue } from 'constants/index';
 import {
   STAKING_REWARDS_INTERFACE,
@@ -36,7 +37,7 @@ import { useUSDCPrices, useUSDCPricesToken } from 'utils/useUSDCPrice';
 import { unwrappedToken } from 'utils/wrappedCurrency';
 import { useTotalSupplys } from 'data/TotalSupply';
 import {
-  getBlockFromTimestamp,
+  // getBlockFromTimestamp,
   getDaysCurrentYear,
   getFarmLPToken,
   getOneYearFee,
@@ -603,97 +604,97 @@ export function useOldSyrupInfo(
   );
 }
 
-export const getBulkPairData = async (pairList: any) => {
-  // if (pairs !== undefined) {
-  //   return;
-  // }
-  const utcCurrentTime = dayjs();
-  const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix();
+// export const getBulkPairData = async (pairList: any) => {
+//   // if (pairs !== undefined) {
+//   //   return;
+//   // }
+//   const utcCurrentTime = dayjs();
+//   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix();
 
-  const oneDayOldBlock = await getBlockFromTimestamp(utcOneDayBack);
+//   const oneDayOldBlock = await getBlockFromTimestamp(utcOneDayBack);
 
-  try {
-    const current = await client.query({
-      query: PAIRS_BULK(pairList),
-      fetchPolicy: 'network-only',
-    });
+//   try {
+//     const current = await client.query({
+//       query: PAIRS_BULK(pairList),
+//       fetchPolicy: 'network-only',
+//     });
 
-    const [oneDayResult] = await Promise.all(
-      [oneDayOldBlock].map(async (block) => {
-        const cResult = await client.query({
-          query: PAIRS_HISTORICAL_BULK(block, pairList),
-          fetchPolicy: 'network-only',
-        });
+//     const [oneDayResult] = await Promise.all(
+//       [oneDayOldBlock].map(async (block) => {
+//         const cResult = await client.query({
+//           query: PAIRS_HISTORICAL_BULK(block, pairList),
+//           fetchPolicy: 'network-only',
+//         });
 
-        return cResult;
-      }),
-    );
+//         return cResult;
+//       }),
+//     );
 
-    const oneDayData = oneDayResult?.data?.pairs.reduce(
-      (obj: any, cur: any, i: any) => {
-        return { ...obj, [cur.id]: cur };
-      },
-      {},
-    );
+//     const oneDayData = oneDayResult?.data?.pairs.reduce(
+//       (obj: any, cur: any, i: any) => {
+//         return { ...obj, [cur.id]: cur };
+//       },
+//       {},
+//     );
 
-    const pairData =
-      current &&
-      current.data.pairs.map((pair: any) => {
-        let data = pair;
-        const oneDayHistory = oneDayData?.[pair.id];
+//     const pairData =
+//       current &&
+//       current.data.pairs.map((pair: any) => {
+//         let data = pair;
+//         const oneDayHistory = oneDayData?.[pair.id];
 
-        data = parseData(data, oneDayHistory);
-        return data;
-      });
+//         data = parseData(data, oneDayHistory);
+//         return data;
+//       });
 
-    const object = convertArrayToObject(pairData, 'id');
-    if (Object.keys(object).length > 0) {
-      pairs = object;
-      return object;
-    }
-    return object;
-  } catch (e) {
-    console.log(e);
-    return;
-  }
-};
+//     const object = convertArrayToObject(pairData, 'id');
+//     if (Object.keys(object).length > 0) {
+//       pairs = object;
+//       return object;
+//     }
+//     return object;
+//   } catch (e) {
+//     console.log(e);
+//     return;
+//   }
+// };
 
-const getOneDayVolume = async () => {
-  let data: any = {};
-  let oneDayData: any = {};
+// const getOneDayVolume = async () => {
+//   let data: any = {};
+//   let oneDayData: any = {};
 
-  const current = await web3.eth.getBlockNumber();
-  const utcCurrentTime = dayjs();
-  const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix();
+//   const current = await web3.eth.getBlockNumber();
+//   const utcCurrentTime = dayjs();
+//   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix();
 
-  const oneDayOldBlock = await getBlockFromTimestamp(utcOneDayBack);
+//   const oneDayOldBlock = await getBlockFromTimestamp(utcOneDayBack);
 
-  const result = await client.query({
-    query: GLOBAL_DATA(current),
-    fetchPolicy: 'network-only',
-  });
+//   const result = await client.query({
+//     query: GLOBAL_DATA(current),
+//     fetchPolicy: 'network-only',
+//   });
 
-  data = result.data.uniswapFactories[0];
+//   data = result.data.uniswapFactories[0];
 
-  // fetch the historical data
-  const oneDayResult = await client.query({
-    query: GLOBAL_DATA(oneDayOldBlock),
-    fetchPolicy: 'network-only',
-  });
-  oneDayData = oneDayResult.data.uniswapFactories[0];
+//   // fetch the historical data
+//   const oneDayResult = await client.query({
+//     query: GLOBAL_DATA(oneDayOldBlock),
+//     fetchPolicy: 'network-only',
+//   });
+//   oneDayData = oneDayResult.data.uniswapFactories[0];
 
-  let oneDayVolumeUSD: any = 0;
+//   let oneDayVolumeUSD: any = 0;
 
-  if (data && oneDayData) {
-    oneDayVolumeUSD = get2DayPercentChange(
-      data.totalVolumeUSD,
-      oneDayData.totalVolumeUSD ? oneDayData.totalVolumeUSD : 0,
-    );
-    oneDayVol = oneDayVolumeUSD;
-  }
+//   if (data && oneDayData) {
+//     oneDayVolumeUSD = get2DayPercentChange(
+//       data.totalVolumeUSD,
+//       oneDayData.totalVolumeUSD ? oneDayData.totalVolumeUSD : 0,
+//     );
+//     oneDayVol = oneDayVolumeUSD;
+//   }
 
-  return oneDayVolumeUSD;
-};
+//   return oneDayVolumeUSD;
+// };
 
 const convertArrayToObject = (array: any, key: any) => {
   const initialValue = {};
@@ -1167,9 +1168,9 @@ function useLairInfo(
     accountArg,
   );
 
-  useEffect(() => {
-    getOneDayVolume();
-  }, []);
+  // useEffect(() => {
+  //   getOneDayVolume();
+  // }, []);
 
   return useMemo(() => {
     return {

@@ -3,12 +3,12 @@ import { Box, Divider } from '@material-ui/core';
 import { SwapHoriz } from '@material-ui/icons';
 import { Currency, Token } from '@uniswap/sdk';
 import { CurrencyLogo } from 'components';
-import { getTokenInfo, formatNumber } from 'utils';
+import { formatNumber } from 'utils';
 import { unwrappedToken } from 'utils/wrappedCurrency';
 import Skeleton from '@material-ui/lab/Skeleton';
 import SwapInfoTx from './SwapInfoTx';
 import { useTranslation } from 'react-i18next';
-import { useEthPrice } from 'state/application/hooks';
+// import { useEthPrice } from 'state/application/hooks';
 
 const SwapProInfo: React.FC<{
   token1?: Token;
@@ -18,38 +18,38 @@ const SwapProInfo: React.FC<{
   const { t } = useTranslation();
   const [token1Data, setToken1Data] = useState<any>(null);
   const [token2Data, setToken2Data] = useState<any>(null);
-  const token1Address = token1?.address;
-  const token2Address = token2?.address;
+  // const token1Address = token1?.address;
+  // const token2Address = token2?.address;
   const currency1 = token1 ? unwrappedToken(token1) : undefined;
   const currency2 = token2 ? unwrappedToken(token2) : undefined;
-  const { ethPrice } = useEthPrice();
+  // const { ethPrice } = useEthPrice();
 
-  useEffect(() => {
-    (async () => {
-      if (ethPrice.price && ethPrice.oneDayPrice) {
-        if (token1Address) {
-          const tokenInfo = await getTokenInfo(
-            ethPrice.price,
-            ethPrice.oneDayPrice,
-            token1Address,
-          );
-          if (tokenInfo) {
-            setToken1Data(tokenInfo[0]);
-          }
-        }
-        if (token2Address) {
-          const tokenInfo = await getTokenInfo(
-            ethPrice.price,
-            ethPrice.oneDayPrice,
-            token2Address,
-          );
-          if (tokenInfo) {
-            setToken2Data(tokenInfo[0]);
-          }
-        }
-      }
-    })();
-  }, [token1Address, token2Address, ethPrice.price, ethPrice.oneDayPrice]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (ethPrice.price && ethPrice.oneDayPrice) {
+  //       if (token1Address) {
+  //         const tokenInfo = await getTokenInfo(
+  //           ethPrice.price,
+  //           ethPrice.oneDayPrice,
+  //           token1Address,
+  //         );
+  //         if (tokenInfo) {
+  //           setToken1Data(tokenInfo[0]);
+  //         }
+  //       }
+  //       if (token2Address) {
+  //         const tokenInfo = await getTokenInfo(
+  //           ethPrice.price,
+  //           ethPrice.oneDayPrice,
+  //           token2Address,
+  //         );
+  //         if (tokenInfo) {
+  //           setToken2Data(tokenInfo[0]);
+  //         }
+  //       }
+  //     }
+  //   })();
+  // }, [token1Address, token2Address, ethPrice.price, ethPrice.oneDayPrice]);
 
   const TokenInfo: React.FC<{ currency: Currency; tokenData: any }> = ({
     currency,

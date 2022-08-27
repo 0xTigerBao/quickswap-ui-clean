@@ -5,7 +5,7 @@ import { ArrowDropUp, ArrowDropDown } from '@material-ui/icons';
 import { useTheme } from '@material-ui/core/styles';
 import { CurrencyLogo } from 'components';
 import {
-  useBlockNumber,
+  // useBlockNumber,
   useEthPrice,
   useTokenDetails,
 } from 'state/application/hooks';
@@ -14,8 +14,8 @@ import { ReactComponent as CopyIcon } from 'assets/images/CopyIcon.svg';
 import {
   shortenAddress,
   formatCompact,
-  getTokenInfo,
-  getIntervalTokenData,
+  // getTokenInfo,
+  // getIntervalTokenData,
   formatNumber,
 } from 'utils';
 import { LineChart } from 'components';
@@ -31,7 +31,7 @@ const SwapTokenDetails: React.FC<{
   const currency = unwrappedToken(token);
   const tokenAddress = token.address;
   const { palette } = useTheme();
-  const latestBlock = useBlockNumber();
+  // const latestBlock = useBlockNumber();
   const { tokenDetails, updateTokenDetails } = useTokenDetails();
   const [tokenData, setTokenData] = useState<any>(null);
   const [priceData, setPriceData] = useState<any>(null);
@@ -48,36 +48,33 @@ const SwapTokenDetails: React.FC<{
       );
       setTokenData(tokenDetail?.tokenData);
       setPriceData(tokenDetail?.priceData);
-      const currentTime = dayjs.utc();
-      const startTime = currentTime
-        .subtract(1, 'day')
-        .startOf('hour')
-        .unix();
-      const tokenPriceData = await getIntervalTokenData(
-        tokenAddress,
-        startTime,
-        3600,
-        latestBlock,
-      );
-      setPriceData(tokenPriceData);
+      // const currentTime = dayjs.utc();
+      // const startTime = currentTime.subtract(1, 'day').startOf('hour').unix();
+      // const tokenPriceData = await getIntervalTokenData(
+      //   tokenAddress,
+      //   startTime,
+      //   3600,
+      //   latestBlock,
+      // );
+      // setPriceData(tokenPriceData);
 
-      if (ethPrice.price && ethPrice.oneDayPrice) {
-        const tokenInfo = await getTokenInfo(
-          ethPrice.price,
-          ethPrice.oneDayPrice,
-          tokenAddress,
-        );
-        if (tokenInfo) {
-          const token0 = tokenInfo[0];
-          setTokenData(token0);
-          const tokenDetailToUpdate = {
-            address: tokenAddress,
-            tokenData: token0,
-            priceData: tokenPriceData,
-          };
-          updateTokenDetails(tokenDetailToUpdate);
-        }
-      }
+      // if (ethPrice.price && ethPrice.oneDayPrice) {
+      //   const tokenInfo = await getTokenInfo(
+      //     ethPrice.price,
+      //     ethPrice.oneDayPrice,
+      //     tokenAddress,
+      //   );
+      //   if (tokenInfo) {
+      //     const token0 = tokenInfo[0];
+      //     setTokenData(token0);
+      //     const tokenDetailToUpdate = {
+      //       address: tokenAddress,
+      //       tokenData: token0,
+      //       priceData: tokenPriceData,
+      //     };
+      //     updateTokenDetails(tokenDetailToUpdate);
+      //   }
+      // }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenAddress, ethPrice.price, ethPrice.oneDayPrice]);

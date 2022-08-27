@@ -5,7 +5,7 @@ import useDebounce from 'hooks/useDebounce';
 import useIsWindowVisible from 'hooks/useIsWindowVisible';
 import { updateBlockNumber } from './actions';
 import { useEthPrice } from './hooks';
-import { getEthPrice } from 'utils';
+// import { getEthPrice } from 'utils';
 
 export default function Updater(): null {
   const { library, chainId } = useActiveWeb3React();
@@ -51,13 +51,13 @@ export default function Updater(): null {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      const [price, oneDayPrice, ethPriceChange] = await getEthPrice();
-      updateEthPrice({ price, oneDayPrice, ethPriceChange });
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentTime]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const [price, oneDayPrice, ethPriceChange] = await getEthPrice();
+  //     updateEthPrice({ price, oneDayPrice, ethPriceChange });
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentTime]);
 
   // attach/detach listeners
   useEffect(() => {

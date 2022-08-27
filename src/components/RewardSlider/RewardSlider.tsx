@@ -6,7 +6,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {
   useStakingInfo,
-  getBulkPairData,
+  // getBulkPairData,
   useDualStakingInfo,
 } from 'state/stake/hooks';
 import RewardSliderItem from './RewardSliderItem';
@@ -34,12 +34,12 @@ const RewardSlider: React.FC = () => {
 
   const stakingPairLists = stakingPairListStr.split(',');
 
-  useEffect(() => {
-    const stakingPairLists = stakingPairListStr.split(',');
-    if (stakingPairListStr) {
-      getBulkPairData(stakingPairLists).then((data) => setBulkPairs(data));
-    }
-  }, [stakingPairListStr]);
+  // useEffect(() => {
+  //   const stakingPairLists = stakingPairListStr.split(',');
+  //   if (stakingPairListStr) {
+  //     getBulkPairData(stakingPairLists).then((data) => setBulkPairs(data));
+  //   }
+  // }, [stakingPairListStr]);
 
   const stakingAPYs = useMemo(() => {
     if (bulkPairs && stakingPairLists.length > 0) {

@@ -5,7 +5,7 @@ import { ChainId, Pair } from '@uniswap/sdk';
 import { unwrappedToken } from 'utils/wrappedCurrency';
 import {
   useStakingInfo,
-  getBulkPairData,
+  // getBulkPairData,
   useDualStakingInfo,
 } from 'state/stake/hooks';
 import { DoubleCurrencyLogo } from 'components';
@@ -37,11 +37,11 @@ const PoolPositionCard: React.FC<{ pair: Pair }> = ({ pair }) => {
 
   const pairId = pair.liquidityToken.address;
 
-  useEffect(() => {
-    const pairLists = [pairId];
-    getBulkPairData(pairLists).then((data) => setBulkPairData(data));
-    return () => setBulkPairData(null);
-  }, [pairId]);
+  // useEffect(() => {
+  //   const pairLists = [pairId];
+  //   getBulkPairData(pairLists).then((data) => setBulkPairData(data));
+  //   return () => setBulkPairData(null);
+  // }, [pairId]);
 
   const [showMore, setShowMore] = useState(false);
 

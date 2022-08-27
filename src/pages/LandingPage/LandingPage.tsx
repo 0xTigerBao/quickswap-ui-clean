@@ -18,7 +18,7 @@ import { ReactComponent as TelegramIcon } from 'assets/images/social/Telegram.sv
 import { ReactComponent as TwitterIcon } from 'assets/images/social/Twitter.svg';
 import { ReactComponent as YouTubeIcon } from 'assets/images/social/YouTube.svg';
 import { RewardSlider, TopMovers } from 'components';
-import { getGlobalData } from 'utils';
+// import { getGlobalData } from 'utils';
 import { useEthPrice, useGlobalData } from 'state/application/hooks';
 import 'pages/styles/landing.scss';
 import { HeroSection } from './HeroSection';
@@ -106,20 +106,20 @@ const LandingPage: React.FC = () => {
   const { globalData, updateGlobalData } = useGlobalData();
   const { ethPrice } = useEthPrice();
 
-  useEffect(() => {
-    async function fetchGlobalData() {
-      if (ethPrice.price && ethPrice.oneDayPrice) {
-        const newGlobalData = await getGlobalData(
-          ethPrice.price,
-          ethPrice.oneDayPrice,
-        );
-        if (newGlobalData) {
-          updateGlobalData({ data: newGlobalData });
-        }
-      }
-    }
-    fetchGlobalData();
-  }, [updateGlobalData, ethPrice.price, ethPrice.oneDayPrice]);
+  // useEffect(() => {
+  //   async function fetchGlobalData() {
+  //     if (ethPrice.price && ethPrice.oneDayPrice) {
+  //       const newGlobalData = await getGlobalData(
+  //         ethPrice.price,
+  //         ethPrice.oneDayPrice,
+  //       );
+  //       if (newGlobalData) {
+  //         updateGlobalData({ data: newGlobalData });
+  //       }
+  //     }
+  //   }
+  //   fetchGlobalData();
+  // }, [updateGlobalData, ethPrice.price, ethPrice.oneDayPrice]);
 
   return (
     <div id='landing-page' style={{ width: '100%' }}>
