@@ -1,29 +1,21 @@
-import React, { useMemo } from 'react';
-import { useTheme } from '@material-ui/core/styles';
 import { Box, useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
-import { useUSDRewardsandFees } from 'state/stake/hooks';
+import { ChainId } from '@uniswap/sdk';
 import { useActiveWeb3React } from 'hooks';
-import { GlobalConst } from 'constants/index';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDefaultFarmList } from 'state/farms/hooks';
-import { ChainId } from '@uniswap/sdk';
+import { useUSDRewardsandFees } from 'state/stake/hooks';
 
-const FarmRewards: React.FC<{ farmIndex: number; bulkPairs: any }> = ({
-  farmIndex,
-  bulkPairs,
-}) => {
+const FarmRewards: React.FC<{ bulkPairs: any }> = ({ bulkPairs }) => {
   const { t } = useTranslation();
   const { breakpoints } = useTheme();
   const { chainId } = useActiveWeb3React();
   const defaultChainId = chainId ?? ChainId.MAINNET;
   const isMobile = useMediaQuery(breakpoints.down('xs'));
 
-  const farmData = useUSDRewardsandFees(
-    farmIndex === GlobalConst.farmIndex.LPFARM_INDEX,
-    bulkPairs,
-    defaultChainId,
-  );
+  const farmData = useUSDRewardsandFees(true, bulkPairs, defaultChainId);
 
   const farms = useDefaultFarmList()[defaultChainId];
   const dQuickRewardSum = useMemo(() => {
@@ -72,25 +64,19 @@ const FarmRewards: React.FC<{ farmIndex: number; bulkPairs: any }> = ({
 
   return (
     <Box className='farmRewards'>
-      {farmIndex === GlobalConst.farmIndex.LPFARM_INDEX && (
-        <>
-          <Box
-            width={isMobile ? 1 : 1 / 3}
-            py={1.5}
-            className='border-right text-center'
-          >
-            <Box mb={1}>
-              <span className='text-secondary'>{t('rewardRate')}</span>
-            </Box>
-            <h6 className='weight-600'>
-              {dQuickRewardSum.toLocaleString()} dQuick / {t('day')}
-            </h6>
-          </Box>
-          {getRewardsSection(true)}
-        </>
-      )}
-      {farmIndex === GlobalConst.farmIndex.DUALFARM_INDEX &&
-        getRewardsSection(false)}
+      <Box
+        width={isMobile ? 1 : 1 / 3}
+        py={1.5}
+        className='border-right text-center'
+      >
+        <Box mb={1}>
+          <span className='text-secondary'>{t('rewardRate')}</span>
+        </Box>
+        <h6 className='weight-600'>
+          {dQuickRewardSum.toLocaleString()} TOKEN / {t('day')}
+        </h6>
+      </Box>
+      {getRewardsSection(true)}
     </Box>
   );
 };
