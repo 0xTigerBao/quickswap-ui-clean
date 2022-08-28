@@ -9,9 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { GlobalValue } from 'constants/index';
 
 const DragonsLair: React.FC<{ isNew: boolean }> = ({ isNew }) => {
-  const quickToken = isNew
-    ? GlobalValue.tokens.COMMON.NEW_QUICK
-    : GlobalValue.tokens.COMMON.OLD_QUICK;
+  const quickToken = GlobalValue.tokens.COMMON.OLD_QUICK;
   const quickPrice = useUSDCPriceToken(quickToken);
   const [isQUICKRate, setIsQUICKRate] = useState(false);
   const [openStakeModal, setOpenStakeModal] = useState(false);

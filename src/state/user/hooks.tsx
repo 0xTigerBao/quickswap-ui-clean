@@ -2,7 +2,7 @@ import { ChainId, Pair, Token } from '@uniswap/sdk';
 import flatMap from 'lodash.flatmap';
 import { useCallback, useMemo } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { GlobalData } from 'constants/index';
+import { GlobalConst, GlobalData } from 'constants/index';
 
 import { useActiveWeb3React } from 'hooks';
 import { useAllTokens } from 'hooks/Tokens';
@@ -197,8 +197,8 @@ export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
     tokenA.chainId,
     Pair.getAddress(tokenA, tokenB),
     18,
-    'QUICK-V2',
-    'Quickswap V2',
+    GlobalConst.liquidityToken.symbol,
+    GlobalConst.liquidityToken.name,
   );
 }
 

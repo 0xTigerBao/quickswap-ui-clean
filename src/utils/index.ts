@@ -1757,61 +1757,61 @@ export function getTokenFromAddress(
   return wrappedTokenInfo;
 }
 
-export function getChartDates(chartData: any[] | null, durationIndex: number) {
-  if (chartData) {
-    const dates: string[] = [];
-    chartData.forEach((value: any, ind: number) => {
-      const month = formatDateFromTimeStamp(Number(value.date), 'MMM');
-      const monthLastDate =
-        ind > 0
-          ? formatDateFromTimeStamp(Number(chartData[ind - 1].date), 'MMM')
-          : '';
-      if (monthLastDate !== month) {
-        dates.push(month);
-      }
-      if (
-        durationIndex === GlobalConst.analyticChart.ONE_MONTH_CHART ||
-        durationIndex === GlobalConst.analyticChart.THREE_MONTH_CHART
-      ) {
-        const dateStr = formatDateFromTimeStamp(Number(value.date), 'D');
-        if (
-          Number(dateStr) %
-            (durationIndex === GlobalConst.analyticChart.ONE_MONTH_CHART
-              ? 3
-              : 7) ===
-          0
-        ) {
-          //Select dates(one date per 3 days for 1 month chart and 7 days for 3 month chart) for x axis values of volume chart on week mode
-          dates.push(dateStr);
-        }
-      }
-    });
-    return dates;
-  } else {
-    return [];
-  }
-}
+// export function getChartDates(chartData: any[] | null, durationIndex: number) {
+//   if (chartData) {
+//     const dates: string[] = [];
+//     chartData.forEach((value: any, ind: number) => {
+//       const month = formatDateFromTimeStamp(Number(value.date), 'MMM');
+//       const monthLastDate =
+//         ind > 0
+//           ? formatDateFromTimeStamp(Number(chartData[ind - 1].date), 'MMM')
+//           : '';
+//       if (monthLastDate !== month) {
+//         dates.push(month);
+//       }
+//       if (
+//         durationIndex === GlobalConst.analyticChart.ONE_MONTH_CHART ||
+//         durationIndex === GlobalConst.analyticChart.THREE_MONTH_CHART
+//       ) {
+//         const dateStr = formatDateFromTimeStamp(Number(value.date), 'D');
+//         if (
+//           Number(dateStr) %
+//             (durationIndex === GlobalConst.analyticChart.ONE_MONTH_CHART
+//               ? 3
+//               : 7) ===
+//           0
+//         ) {
+//           //Select dates(one date per 3 days for 1 month chart and 7 days for 3 month chart) for x axis values of volume chart on week mode
+//           dates.push(dateStr);
+//         }
+//       }
+//     });
+//     return dates;
+//   } else {
+//     return [];
+//   }
+// }
 
-export function getChartStartTime(durationIndex: number) {
-  const utcEndTime = dayjs.utc();
-  const months =
-    durationIndex === GlobalConst.analyticChart.SIX_MONTH_CHART
-      ? 6
-      : durationIndex === GlobalConst.analyticChart.THREE_MONTH_CHART
-      ? 3
-      : 1;
-  const startTime =
-    utcEndTime
-      .subtract(
-        months,
-        durationIndex === GlobalConst.analyticChart.ONE_YEAR_CHART
-          ? 'year'
-          : 'month',
-      )
-      .endOf('day')
-      .unix() - 1;
-  return startTime;
-}
+// export function getChartStartTime(durationIndex: number) {
+//   const utcEndTime = dayjs.utc();
+//   const months =
+//     durationIndex === GlobalConst.analyticChart.SIX_MONTH_CHART
+//       ? 6
+//       : durationIndex === GlobalConst.analyticChart.THREE_MONTH_CHART
+//       ? 3
+//       : 1;
+//   const startTime =
+//     utcEndTime
+//       .subtract(
+//         months,
+//         durationIndex === GlobalConst.analyticChart.ONE_YEAR_CHART
+//           ? 'year'
+//           : 'month',
+//       )
+//       .endOf('day')
+//       .unix() - 1;
+//   return startTime;
+// }
 
 export function getLimitedData(data: any[], count: number) {
   const dataCount = data.length;
@@ -1855,9 +1855,7 @@ export function getTokenAPRSyrup(syrup: SyrupInfo) {
 
 export function useLairDQUICKAPY(isNew: boolean, lair?: LairInfo) {
   const daysCurrentYear = getDaysCurrentYear();
-  const quickToken = isNew
-    ? GlobalValue.tokens.COMMON.NEW_QUICK
-    : GlobalValue.tokens.COMMON.OLD_QUICK;
+  const quickToken = GlobalValue.tokens.COMMON.OLD_QUICK;
   const quickPrice = useUSDCPriceToken(quickToken);
 
   if (!lair) return '';
@@ -2095,8 +2093,8 @@ export function getEarnedUSDDualFarm(stakingInfo: DualStakingInfo | undefined) {
 
 export function isSupportedNetwork(ethereum: any) {
   return (
-    Number(ethereum.chainId) === ChainId.MATIC ||
-    Number(ethereum.chainId) === ChainId.MUMBAI
+    Number(ethereum.chainId) === ChainId.MAINNET ||
+    Number(ethereum.chainId) === ChainId.TESTNET
   );
 }
 

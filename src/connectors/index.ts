@@ -22,7 +22,7 @@ if (typeof NETWORK_URL === 'undefined') {
 }
 
 export const network = new NetworkConnector({
-  urls: { [Number(ChainId.MATIC)]: NETWORK_URL },
+  urls: { [Number(ChainId.MAINNET)]: NETWORK_URL },
 });
 
 let networkLibrary: Web3Provider | undefined;
@@ -32,14 +32,14 @@ export function getNetworkLibrary(): Web3Provider {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [ChainId.MATIC, ChainId.MUMBAI],
+  supportedChainIds: [ChainId.MAINNET, ChainId.TESTNET],
 });
 
 export const safeApp = new SafeAppConnector();
 
 // mainnet only
 export const walletconnect = new WalletConnectConnector({
-  rpc: { [ChainId.MATIC]: NETWORK_URL },
+  rpc: { [ChainId.MAINNET]: NETWORK_URL },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
 });
@@ -50,5 +50,5 @@ export const walletlink = new WalletLinkConnector({
   appName: 'Uniswap',
   appLogoUrl:
     'https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg',
-  supportedChainIds: [ChainId.MATIC, ChainId.MUMBAI],
+  supportedChainIds: [ChainId.MAINNET, ChainId.TESTNET],
 });

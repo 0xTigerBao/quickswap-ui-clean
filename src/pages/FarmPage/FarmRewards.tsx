@@ -16,7 +16,7 @@ const FarmRewards: React.FC<{ farmIndex: number; bulkPairs: any }> = ({
   const { t } = useTranslation();
   const { breakpoints } = useTheme();
   const { chainId } = useActiveWeb3React();
-  const defaultChainId = chainId ?? ChainId.MATIC;
+  const defaultChainId = chainId ?? ChainId.MAINNET;
   const isMobile = useMediaQuery(breakpoints.down('xs'));
 
   const farmData = useUSDRewardsandFees(

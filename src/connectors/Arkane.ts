@@ -6,13 +6,13 @@ import { Arkane } from '@arkane-network/web3-arkane-provider';
 import { ArkaneConnect, SecretType } from '@arkane-network/arkane-connect';
 import Web3 from 'web3';
 
-type ArkaneSupportedChains = Extract<ChainId, ChainId.MATIC | ChainId.MUMBAI>;
+type ArkaneSupportedChains = Extract<ChainId, ChainId.MAINNET | ChainId.TESTNET>;
 
 const CHAIN_ID_NETWORK_ARGUMENT: {
   readonly [chainId in ArkaneSupportedChains]: string | undefined;
 } = {
-  [ChainId.MUMBAI]: 'mumbai',
-  [ChainId.MATIC]: 'matic',
+  [ChainId.TESTNET]: 'mumbai',
+  [ChainId.MAINNET]: 'matic',
 };
 
 interface ArkaneConnectorArguments {

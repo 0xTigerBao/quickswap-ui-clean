@@ -13,7 +13,7 @@ export const TradingInfo: React.FC<{ globalData: any }> = ({ globalData }) => {
 
   const dQUICKAPY = useLairDQUICKAPY(false, lairInfo);
   //TODO: Support Multichain
-  const totalRewardsUSD = useTotalRewardsDistributed(ChainId.MATIC);
+  const totalRewardsUSD = useTotalRewardsDistributed(ChainId.MAINNET);
   const { t } = useTranslation();
 
   return (

@@ -64,7 +64,7 @@ const TokensTable: React.FC<TokensTableProps> = ({
   } = useBookmarkTokens();
   const mobileHTML = (token: any, index: number) => {
     const tokenCurrency = new Token(
-      ChainId.MATIC,
+      ChainId.MAINNET,
       getAddress(token.id),
       Number(token.decimals),
       token.symbol,
@@ -132,7 +132,7 @@ const TokensTable: React.FC<TokensTableProps> = ({
 
   const desktopHTML = (token: any) => {
     const tokenCurrency = new Token(
-      ChainId.MATIC,
+      ChainId.MAINNET,
       getAddress(token.id),
       Number(token.decimals),
       token.symbol,

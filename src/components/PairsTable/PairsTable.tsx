@@ -71,13 +71,13 @@ const PairTable: React.FC<PairsTableProps> = ({
   } = useBookmarkPairs();
   const mobileHTML = (pair: any, index: number) => {
     const token0 = new Token(
-      ChainId.MATIC,
+      ChainId.MAINNET,
       getAddress(pair.token0.id),
       Number(pair.token0.decimals),
       pair.token0.symbol,
     );
     const token1 = new Token(
-      ChainId.MATIC,
+      ChainId.MAINNET,
       getAddress(pair.token1.id),
       Number(pair.token1.decimals),
       pair.token1.symbol,
@@ -153,13 +153,13 @@ const PairTable: React.FC<PairsTableProps> = ({
 
   const desktopHTML = (pair: any) => {
     const token0 = new Token(
-      ChainId.MATIC,
+      ChainId.MAINNET,
       getAddress(pair.token0.id),
       Number(pair.token0.decimals),
       pair.token0.symbol,
     );
     const token1 = new Token(
-      ChainId.MATIC,
+      ChainId.MAINNET,
       getAddress(pair.token1.id),
       Number(pair.token1.decimals),
       pair.token1.symbol,

@@ -30,7 +30,7 @@ export class WrappedSyrupInfo implements SyrupBasic {
   ) {
     this.stakingInfo = syrupInfo;
     //TODO: Support Multichain
-    this.chainId = ChainId.MATIC;
+    this.chainId = ChainId.MAINNET;
     this.stakingRewardAddress = syrupInfo.stakingRewardAddress;
     this.rate = syrupInfo.rate;
     this.ended = syrupInfo.ended;
@@ -71,8 +71,8 @@ export type SyrupInfoAddressMap = Readonly<
  * An empty result, useful as a default.
  */
 const EMPTY_LIST: SyrupInfoAddressMap = {
-  [ChainId.MUMBAI]: {},
-  [ChainId.MATIC]: {},
+  [ChainId.TESTNET]: {},
+  [ChainId.MAINNET]: {},
 };
 
 const syrupCache: WeakMap<SyrupListInfo, SyrupInfoAddressMap> | null =
@@ -94,7 +94,7 @@ export function listToSyrupMap(
         syrup,
         tokenAddressMap,
         syrupTokens,
-        ChainId.MATIC,
+        ChainId.MAINNET,
       );
       if (
         syrupInfoMap[wrappedSyrupInfo.chainId][
@@ -129,7 +129,7 @@ export function useSyrupList(url: string | undefined): SyrupInfoAddressMap {
           .map((item) => [item.baseToken, item.token, item.stakingToken])
           .flat()
           .filter((item) => !!item)
-          .filter((address) => !tokenMap[ChainId.MATIC][address])
+          .filter((address) => !tokenMap[ChainId.MAINNET][address])
           .filter(
             (address) =>
               !Object.values(GlobalValue.tokens.COMMON).find(

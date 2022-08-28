@@ -23,10 +23,12 @@ const YourLiquidityPools: React.FC = () => {
       })),
     [trackedTokenPairs],
   );
+
   const liquidityTokens = useMemo(
     () => tokenPairsWithLiquidityTokens.map((tpwlt) => tpwlt.liquidityToken),
     [tokenPairsWithLiquidityTokens],
   );
+
   const [
     v2PairsBalances,
     fetchingV2PairBalances,
@@ -34,7 +36,6 @@ const YourLiquidityPools: React.FC = () => {
     account ?? undefined,
     liquidityTokens,
   );
-
   // fetch the reserves for all V2 pools in which the user has a balance
   const liquidityTokensWithBalances = useMemo(
     () =>

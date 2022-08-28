@@ -4,7 +4,7 @@ import invariant from 'tiny-invariant';
 
 export const OVERLAY_READY = 'OVERLAY_READY';
 
-type FormaticSupportedChains = Extract<ChainId, ChainId.MATIC | ChainId.MUMBAI>;
+type FormaticSupportedChains = Extract<ChainId, ChainId.MAINNET | ChainId.TESTNET>;
 
 interface FortmaticConnectorArguments {
   apiKey: string;
@@ -14,8 +14,8 @@ interface FortmaticConnectorArguments {
 const CHAIN_ID_NETWORK_ARGUMENT: {
   readonly [chainId in FormaticSupportedChains]: string | undefined;
 } = {
-  [ChainId.MUMBAI]: undefined,
-  [ChainId.MATIC]: 'mumbai',
+  [ChainId.TESTNET]: undefined,
+  [ChainId.MAINNET]: 'mumbai',
 };
 
 export class FortmaticConnector extends AbstractConnector {

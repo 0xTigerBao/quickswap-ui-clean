@@ -20,7 +20,7 @@ const FarmPage: React.FC = () => {
   const [farmIndex, setFarmIndex] = useState(
     GlobalConst.farmIndex.LPFARM_INDEX,
   );
-  const chainIdOrDefault = chainId ?? ChainId.MATIC;
+  const chainIdOrDefault = chainId ?? ChainId.MAINNET;
   const lpFarms = useDefaultFarmList();
   const dualFarms = useDefaultDualFarmList();
 

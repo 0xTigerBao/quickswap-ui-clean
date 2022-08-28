@@ -58,7 +58,7 @@ const FarmsList: React.FC<FarmsListProps> = ({ bulkPairs, farmIndex }) => {
     setFarmSearch,
   );
 
-  const chainIdOrDefault = chainId ?? ChainId.MATIC;
+  const chainIdOrDefault = chainId ?? ChainId.MAINNET;
 
   const addedLPStakingInfos = useStakingInfo(
     chainIdOrDefault,

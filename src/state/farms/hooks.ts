@@ -81,8 +81,8 @@ export type StakingInfoAddressMap = Readonly<
  * An empty result, useful as a default.
  */
 const EMPTY_LIST: StakingInfoAddressMap = {
-  [ChainId.MUMBAI]: {},
-  [ChainId.MATIC]: {},
+  [ChainId.TESTNET]: {},
+  [ChainId.MAINNET]: {},
 };
 
 const farmCache: WeakMap<FarmListInfo, StakingInfoAddressMap> | null =
@@ -104,7 +104,7 @@ export function listToFarmMap(
         stakingInfo,
         tokenAddressMap,
         farmTokens,
-        ChainId.MATIC,
+        ChainId.MAINNET,
       );
       if (
         stakingInfoMap[wrappedStakingInfo.chainId][
@@ -145,7 +145,7 @@ export function useFarmList(url: string | undefined): StakingInfoAddressMap {
           ])
           .flat()
           .filter((item) => !!item)
-          .filter((address) => !tokenMap[ChainId.MATIC][address])
+          .filter((address) => !tokenMap[ChainId.MAINNET][address])
           .filter(
             (address) =>
               !Object.values(GlobalValue.tokens.COMMON).find(

@@ -5070,10 +5070,8 @@
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
-"@uniswap/sdk@npm:quickswap-sdk@3.0.8":
+"@uniswap/sdk@./public/swap-sdk":
   version "3.0.8"
-  resolved "https://registry.yarnpkg.com/quickswap-sdk/-/quickswap-sdk-3.0.8.tgz#7fada995bb4e054212a0920de1f29977d617c997"
-  integrity sha512-1pMOS5/RC4K++RCrt3hrhSHDzzVzy40CiLgM8UbvdSVUuYMN5jZZVocbkG+5fRlJA1JqhKhs2OYYLh08t50KOw==
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     big.js "^5.2.2"

@@ -12,7 +12,7 @@ const addMaticToMetamask: () => void = () => {
             iconUrls: [
               'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png',
             ],
-            blockExplorerUrls: ['https://polygonscan.com/'],
+            blockExplorerUrls: [process.env.REACT_APP_SCAN_BASE_URL + '/'],
             nativeCurrency: {
               name: 'Matic Token',
               symbol: 'MATIC',

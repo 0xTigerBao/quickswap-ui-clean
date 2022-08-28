@@ -20,7 +20,7 @@ const RewardSlider: React.FC = () => {
   const { chainId } = useActiveWeb3React();
   const tabletWindowSize = useMediaQuery(theme.breakpoints.down('md'));
   const mobileWindowSize = useMediaQuery(theme.breakpoints.down('sm'));
-  const defaultChainId = chainId ?? ChainId.MATIC;
+  const defaultChainId = chainId ?? ChainId.MAINNET;
   const lprewardItems = useStakingInfo(defaultChainId, null, 0, 2);
   const dualrewardItems = useDualStakingInfo(defaultChainId, null, 0, 1);
   const [bulkPairs, setBulkPairs] = useState<any>(null);

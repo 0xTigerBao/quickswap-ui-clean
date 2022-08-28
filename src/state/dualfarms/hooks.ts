@@ -96,8 +96,8 @@ export type DualFarmInfoAddressMap = Readonly<
  * An empty result, useful as a default.
  */
 const EMPTY_LIST: DualFarmInfoAddressMap = {
-  [ChainId.MUMBAI]: {},
-  [ChainId.MATIC]: {},
+  [ChainId.TESTNET]: {},
+  [ChainId.MAINNET]: {},
 };
 
 const dualFarmCache: WeakMap<DualFarmListInfo, DualFarmInfoAddressMap> | null =
@@ -119,7 +119,7 @@ export function listToDualFarmMap(
         stakingInfo,
         tokenAddressMap,
         dualFarmTokens,
-        ChainId.MATIC,
+        ChainId.MAINNET,
       );
       if (
         stakingInfoMap[wrappedStakingInfo.chainId][
@@ -163,7 +163,7 @@ export function useDualFarmList(
           ])
           .flat()
           .filter((item) => !!item)
-          .filter((address) => !tokenMap[ChainId.MATIC][address])
+          .filter((address) => !tokenMap[ChainId.MAINNET][address])
           .filter(
             (address) =>
               !Object.values(GlobalValue.tokens.COMMON).find(

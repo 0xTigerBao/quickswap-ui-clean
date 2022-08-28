@@ -20,7 +20,7 @@ describe('transaction reducer', () => {
       const beforeTime = new Date().getTime();
       store.dispatch(
         addTransaction({
-          chainId: ChainId.MATIC,
+          chainId: ChainId.MAINNET,
           summary: 'hello world',
           hash: '0x0',
           approval: { tokenAddress: 'abc', spender: 'def' },
@@ -28,9 +28,9 @@ describe('transaction reducer', () => {
         }),
       );
       const txs = store.getState();
-      expect(txs[ChainId.MATIC]).toBeTruthy();
-      expect(txs[ChainId.MATIC]?.['0x0']).toBeTruthy();
-      const tx = txs[ChainId.MATIC]?.['0x0'];
+      expect(txs[ChainId.MAINNET]).toBeTruthy();
+      expect(txs[ChainId.MAINNET]?.['0x0']).toBeTruthy();
+      const tx = txs[ChainId.MAINNET]?.['0x0'];
       expect(tx).toBeTruthy();
       expect(tx?.hash).toEqual('0x0');
       expect(tx?.summary).toEqual('hello world');
@@ -44,7 +44,7 @@ describe('transaction reducer', () => {
     it('no op if not valid transaction', () => {
       store.dispatch(
         finalizeTransaction({
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           hash: '0x0',
           receipt: {
             status: 1,
@@ -64,7 +64,7 @@ describe('transaction reducer', () => {
       store.dispatch(
         addTransaction({
           hash: '0x0',
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           approval: { spender: '0x0', tokenAddress: '0x0' },
           summary: 'hello world',
           from: '0x0',
@@ -73,7 +73,7 @@ describe('transaction reducer', () => {
       const beforeTime = new Date().getTime();
       store.dispatch(
         finalizeTransaction({
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           hash: '0x0',
           receipt: {
             status: 1,
@@ -87,7 +87,7 @@ describe('transaction reducer', () => {
           },
         }),
       );
-      const tx = store.getState()[ChainId.MUMBAI]?.['0x0'];
+      const tx = store.getState()[ChainId.TESTNET]?.['0x0'];
       expect(tx?.summary).toEqual('hello world');
       expect(tx?.confirmedTime).toBeGreaterThanOrEqual(beforeTime);
       expect(tx?.receipt).toEqual({
@@ -107,7 +107,7 @@ describe('transaction reducer', () => {
     it('no op if not valid transaction', () => {
       store.dispatch(
         checkedTransaction({
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           hash: '0x0',
           blockNumber: 1,
         }),
@@ -118,7 +118,7 @@ describe('transaction reducer', () => {
       store.dispatch(
         addTransaction({
           hash: '0x0',
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           approval: { spender: '0x0', tokenAddress: '0x0' },
           summary: 'hello world',
           from: '0x0',
@@ -126,19 +126,19 @@ describe('transaction reducer', () => {
       );
       store.dispatch(
         checkedTransaction({
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           hash: '0x0',
           blockNumber: 1,
         }),
       );
-      const tx = store.getState()[ChainId.MUMBAI]?.['0x0'];
+      const tx = store.getState()[ChainId.TESTNET]?.['0x0'];
       expect(tx?.lastCheckedBlockNumber).toEqual(1);
     });
     it('never decreases', () => {
       store.dispatch(
         addTransaction({
           hash: '0x0',
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           approval: { spender: '0x0', tokenAddress: '0x0' },
           summary: 'hello world',
           from: '0x0',
@@ -146,19 +146,19 @@ describe('transaction reducer', () => {
       );
       store.dispatch(
         checkedTransaction({
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           hash: '0x0',
           blockNumber: 3,
         }),
       );
       store.dispatch(
         checkedTransaction({
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           hash: '0x0',
           blockNumber: 1,
         }),
       );
-      const tx = store.getState()[ChainId.MUMBAI]?.['0x0'];
+      const tx = store.getState()[ChainId.TESTNET]?.['0x0'];
       expect(tx?.lastCheckedBlockNumber).toEqual(3);
     });
   });
@@ -167,7 +167,7 @@ describe('transaction reducer', () => {
     it('removes all transactions for the chain', () => {
       store.dispatch(
         addTransaction({
-          chainId: ChainId.MATIC,
+          chainId: ChainId.MAINNET,
           summary: 'hello world',
           hash: '0x0',
           approval: { tokenAddress: 'abc', spender: 'def' },
@@ -176,7 +176,7 @@ describe('transaction reducer', () => {
       );
       store.dispatch(
         addTransaction({
-          chainId: ChainId.MUMBAI,
+          chainId: ChainId.TESTNET,
           summary: 'hello world',
           hash: '0x1',
           approval: { tokenAddress: 'abc', spender: 'def' },
@@ -185,23 +185,23 @@ describe('transaction reducer', () => {
       );
       expect(Object.keys(store.getState())).toHaveLength(2);
       expect(Object.keys(store.getState())).toEqual([
-        String(ChainId.MATIC),
-        String(ChainId.MUMBAI),
+        String(ChainId.MAINNET),
+        String(ChainId.TESTNET),
       ]);
-      expect(Object.keys(store.getState()[ChainId.MATIC] ?? {})).toEqual([
+      expect(Object.keys(store.getState()[ChainId.MAINNET] ?? {})).toEqual([
         '0x0',
       ]);
-      expect(Object.keys(store.getState()[ChainId.MUMBAI] ?? {})).toEqual([
+      expect(Object.keys(store.getState()[ChainId.TESTNET] ?? {})).toEqual([
         '0x1',
       ]);
-      store.dispatch(clearAllTransactions({ chainId: ChainId.MATIC }));
+      store.dispatch(clearAllTransactions({ chainId: ChainId.MAINNET }));
       expect(Object.keys(store.getState())).toHaveLength(2);
       expect(Object.keys(store.getState())).toEqual([
-        String(ChainId.MATIC),
-        String(ChainId.MUMBAI),
+        String(ChainId.MAINNET),
+        String(ChainId.TESTNET),
       ]);
-      expect(Object.keys(store.getState()[ChainId.MATIC] ?? {})).toEqual([]);
-      expect(Object.keys(store.getState()[ChainId.MUMBAI] ?? {})).toEqual([
+      expect(Object.keys(store.getState()[ChainId.MAINNET] ?? {})).toEqual([]);
+      expect(Object.keys(store.getState()[ChainId.TESTNET] ?? {})).toEqual([
         '0x1',
       ]);
     });

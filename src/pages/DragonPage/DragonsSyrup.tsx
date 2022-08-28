@@ -54,7 +54,7 @@ const DragonsSyrup: React.FC = () => {
 
   const lairInfo = useOldLairInfo();
   const dQUICKAPY = useLairDQUICKAPY(false, lairInfo);
-  const chainIdOrDefault = chainId ?? ChainId.MATIC;
+  const chainIdOrDefault = chainId ?? ChainId.MAINNET;
   const addedStakingSyrupInfos = useFilteredSyrupInfo(
     chainIdOrDefault,
     null,
